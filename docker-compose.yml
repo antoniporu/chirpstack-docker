@@ -14,13 +14,14 @@ services:
       - MQTT_BROKER_HOST=mosquitto
       - REDIS_HOST=redis
       - POSTGRESQL_HOST=postgres
-    #labels:
-     # - traefik.enable=true
-     # - traefik.http.routers.chirpstack.rule=Host(`chirpstack.twinrockets.io`) && PathPrefix(`/`)
-     # - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-     # - traefik.http.routers.chirpstack.entrypoints=http
-     # - traefik.http.routers.chirpstack.service=chirpstack
-     # - traefik.http.services.chirpstack.loadbalancer.server.port=80
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.gzip.compress=true
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.routers.chirpstack.entrypoints=http
+      - traefik.http.routers.chirpstack.rule=Host(`chirpstack.twinrockets.io`) && PathPrefix(`/`)
+      - traefik.http.routers.chirpstack.service=chirpstack
+      - traefik.http.services.chirpstack.loadbalancer.server.port=8080
     #ports:
      # - "8181:8080"
 
