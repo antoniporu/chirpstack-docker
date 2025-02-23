@@ -28,8 +28,8 @@ services:
   chirpstack-gateway-bridge:
     image: chirpstack/chirpstack-gateway-bridge:4
     restart: unless-stopped
-    #ports:
-    #  - "1700:1700/udp"
+    ports:
+      - "1700:1700/udp"
     volumes:
       #- ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
       - /home/chirpstack-docker/configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
