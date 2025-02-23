@@ -60,6 +60,14 @@ services:
     #  - "8090:8090"
     depends_on:
       - chirpstack
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.gzip.compress=true
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.routers.chirpstack-api.entrypoints=http
+      - traefik.http.routers.chirpstack-api.rule=Host(`chirpstack-api.twinrockets.io`) && PathPrefix(`/`)
+      - traefik.http.routers.chirpstack-api.service=chirpstack-api
+      - traefik.http.services.chirpstack-api.loadbalancer.server.port=8090
 
   postgres:
     image: postgres:14-alpine
